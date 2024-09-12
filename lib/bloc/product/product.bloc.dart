@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:klontong/bloc/product.even.dart';
-import 'package:klontong/bloc/product.state.dart';
+import 'package:klontong/bloc/product/product.even.dart';
+import 'package:klontong/bloc/product/product.state.dart';
 import 'package:klontong/repositories/product.repository.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {

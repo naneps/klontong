@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:klontong/bloc/auth/login.bloc.dart';
-import 'package:klontong/bloc/auth/login.event.dart';
 import 'package:klontong/bloc/product/product.bloc.dart';
 import 'package:klontong/bloc/product/product.even.dart';
 import 'package:klontong/bloc/product/product.state.dart';
-import 'package:klontong/screens/auth/login_page.dart';
 import 'package:klontong/screens/create_product_page.dart';
 
 class ProductListPage extends StatelessWidget {
@@ -14,24 +11,7 @@ class ProductListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Product List'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              // Trigger logout event in LoginBloc
-              // Trigger the logout event in LoginBloc
-              context.read<LoginBloc>().add(LogoutEvent());
-
-              // Navigate back to the login page after logging out
-              Navigator.of(context).pushReplacement(
-                LoginPage()
-              )
-            },
-          ),
-        ],
-      ),
+      appBar: AppBar(title: const Text('Product List')),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
