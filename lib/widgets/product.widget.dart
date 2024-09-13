@@ -31,7 +31,6 @@ class ProductWidget extends StatelessWidget {
             ),
           );
         },
-        onLongPress: () {},
         leading: SizedBox(
           width: 90,
           height: 90,
@@ -71,7 +70,7 @@ class ProductWidget extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  context.read<ProductBloc>().add(DeleteProduct(product.id));
+                  _showDeleteConfirmationBottomSheet(context);
                 },
                 icon: const Icon(Icons.delete),
               ),
@@ -79,6 +78,68 @@ class ProductWidget extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showDeleteConfirmationBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text.rich(
+                TextSpan(
+                  text: 'Are you sure you want to delete ',
+                  children: [
+                    TextSpan(
+                      text: product.name,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 18),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      style:
+                          ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        context
+                            .read<ProductBloc>()
+                            .add(DeleteProduct(product.id));
+                      },
+                      child: const Text('Delete'),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.grey,
+                        side: const BorderSide(color: Colors.grey),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Cancel'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -4,43 +4,35 @@
 
 # KLONTONG
 
-## 1. Login Pengguna
+## 1. Login Page
 
 - **Username:** `admin`
 - **Password:** `password`
 
 ### Screenshot
-![Login Screen](https://github.com/username/repository/path/to/login_screenshot.png)
+![Login Screen](https://github.com/naneps/klontong/blob/main/docs/login.png?raw=true)
 
-## 2. Manajemen Produk
-
-### Fitur
+## 2. Management Product
 
 #### 2.1. Create Product
-- **Deskripsi:** Menambahkan produk baru ke sistem.
-- **Input:** Nama produk, Deskripsi, URL gambar produk.
-- **Output:** Konfirmasi bahwa produk telah berhasil dibuat.
 
-#### 2.2. Read Product
-- **Deskripsi:** Menampilkan detail produk tertentu.
-- **Input:** ID produk.
-- **Output:** Informasi lengkap tentang produk.
+![Create Product](https://github.com/naneps/klontong/blob/main/docs/create_product.png?raw=true)
 
-#### 2.3. Update Product
-- **Deskripsi:** Memperbarui detail produk yang sudah ada.
-- **Input:** Nama produk baru, Deskripsi, URL gambar baru.
-- **Output:** Konfirmasi bahwa produk telah berhasil diperbarui.
+#### 2.2. List Product
 
-#### 2.4. Delete Product
-- **Deskripsi:** Menghapus produk dari sistem.
-- **Input:** ID produk.
-- **Output:** Konfirmasi bahwa produk telah berhasil dihapus.
+![List Product](https://github.com/naneps/klontong/blob/main/docs/product_list.png?raw=true)
 
-### Screenshot
-*Tambahkan screenshot dari fitur manajemen produk Anda di GitHub*
+#### 2.3. Detail Product
 
-![Product Management](https://github.com/username/repository/path/to/product_management_screenshot.png)
+![Detail Product](https://github.com/naneps/klontong/blob/main/docs/product_detail.png?raw=true)
+
+#### 2.4. Update Product
+
+![Update Product](https://github.com/naneps/klontong/blob/main/docs/update_product.png?raw=true)
+
+#### 2.5. Delete Product
+
+![Delete Product](https://github.com/naneps/klontong/blob/main/docs/delete_product.png?raw=true)
+
 
 ---
-
-Anda bisa mengganti `https://github.com/username/repository/path/to/...` dengan URL aktual dari screenshot yang telah Anda unggah di GitHub. Dokumentasi ini memberikan gambaran tentang fitur dan deskripsi aplikasi Anda serta memudahkan pengguna memahami fungsi masing-masing bagian aplikasi.
