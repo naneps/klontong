@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:klontong/models/product.model.dart';
 
+class ProductEmpty extends ProductState {}
+
 class ProductError extends ProductState {
   final String message;
   ProductError(this.message);

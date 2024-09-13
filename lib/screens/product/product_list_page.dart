@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klontong/bloc/auth/login.bloc.dart';
+import 'package:klontong/bloc/auth/login.event.dart';
 import 'package:klontong/bloc/product/product.bloc.dart';
-import 'package:klontong/bloc/product/product.even.dart';
 import 'package:klontong/bloc/product/product.state.dart';
-import 'package:klontong/screens/create_product_page.dart';
+import 'package:klontong/bloc/theme/theme.bloc.dart';
+import 'package:klontong/bloc/theme/theme.event.dart';
+import 'package:klontong/screens/auth/login_page.dart';
+import 'package:klontong/screens/product/create_product_page.dart';
+import 'package:klontong/widgets/product.widget.dart';
 
 class ProductListPage extends StatelessWidget {
   const ProductListPage({super.key});
@@ -11,7 +16,26 @@ class ProductListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Product List')),
+      appBar: AppBar(
+        title: const Text('Product List'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.brightness_6), // Theme toggle icon
+            onPressed: () {
+              context.read<ThemeBloc>().add(ToggleTheme());
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              context.read<LoginBloc>().add(LogoutEvent());
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            },
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -23,48 +47,18 @@ class ProductListPage extends StatelessWidget {
       body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
           if (state is ProductLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           } else if (state is ProductLoaded) {
-            return ListView.builder(
+            return ListView.separated(
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               itemCount: state.products.length,
               itemBuilder: (context, index) {
                 final product = state.products[index];
-                return ListTile(
-                  leading: SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: Image.network(
-                      product.imageUrl,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Icon(Icons.inventory);
-                      },
-                    ),
-                  ),
-                  title: Text(product.name),
-                  subtitle: Text(product.description),
-                  trailing: SizedBox(
-                    width: 100,
-                    child: Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            // Handle edit functionality if needed
-                          },
-                          icon: const Icon(Icons.edit),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            context
-                                .read<ProductBloc>()
-                                .add(DeleteProduct(product.id));
-                            context.read<ProductBloc>().add(FetchProducts());
-                          },
-                          icon: const Icon(Icons.delete),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+                return ProductWidget(product: product);
               },
             );
           } else if (state is ProductError) {

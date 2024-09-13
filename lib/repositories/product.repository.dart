@@ -4,7 +4,7 @@ import 'package:klontong/models/product.model.dart';
 class ProductRepository {
   final Dio dio = Dio();
   final String baseUrl =
-      "https://crudcrud.com/api/473f8d312b0e4af0ab7e92d271d26097/products";
+      "https://crudcrud.com/api/bae8ffe295af4a8390d4fd951c3f4ace/products";
 
   Future<void> addProduct(Product product) async {
     await dio.post(baseUrl, data: product.toJson());

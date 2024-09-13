@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 
 class Product extends Equatable {
   final String id;
@@ -31,10 +32,15 @@ class Product extends Equatable {
     );
   }
 
+  String get priceFormatted => NumberFormat.currency(
+        decimalDigits: 0,
+        locale: 'ID',
+        symbol: 'Rp ',
+      ).format(price);
+
   @override
   List<Object?> get props =>
       [id, name, description, price, category, sku, imageUrl];
-
   Map<String, dynamic> toJson() {
     return {
       'name': name,
