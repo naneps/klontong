@@ -1,8 +1,7 @@
-// login_bloc.dart
 import 'package:bloc/bloc.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart'; // Import Firebase Crashlytics
 import 'package:klontong/bloc/auth/login.event.dart';
 import 'package:klontong/bloc/auth/login.state.dart';
-import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -14,13 +13,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Future<void> _onCheckLoginStatus(
       CheckLoginStatus event, Emitter<LoginState> emit) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? isLoggedIn = prefs.getBool('isLoggedIn');
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool? isLoggedIn = prefs.getBool('isLoggedIn');
 
-    if (isLoggedIn != null && isLoggedIn) {
-      emit(LoginSuccess());
-    } else {
-      emit(LoginInitial());
+      if (isLoggedIn != null && isLoggedIn) {
+        emit(LoginSuccess());
+      } else {
+        emit(LoginInitial());
+      }
+    } catch (e, stackTrace) {
+      FirebaseCrashlytics.instance
+          .recordError(e, stackTrace); // Log error to Crashlytics
+      emit(LoginFailure(e.toString()));
     }
   }
 
@@ -36,16 +41,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } else {
         emit(const LoginFailure('Invalid username or password'));
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
+      FirebaseCrashlytics.instance
+          .recordError(e, stackTrace); // Log error to Crashlytics
       emit(LoginFailure(e.toString()));
     }
   }
 
   Future<void> _onLogout(LogoutEvent event, Emitter<LoginState> emit) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('isLoggedIn');
-    emit(LoginInitial());
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.remove('isLoggedIn');
+      emit(LoginInitial());
+    } catch (e, stackTrace) {
+      FirebaseCrashlytics.instance
+          .recordError(e, stackTrace); // Log error to Crashlytics
+      emit(LoginFailure(e.toString()));
+    }
   }
 }
-
-class MockSharedPreferences extends Mock implements SharedPreferences {}

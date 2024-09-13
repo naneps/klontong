@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "221525248711",
+    "project_id": "self-a0cc9",
+    "storage_bucket": "self-a0cc9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221525248711:android:eebf03d3c392abb7e54ce2",
+        "android_client_info": {
+          "package_name": "com.example.klontong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "221525248711-jf4opvbal12c3bk2fp3drsr92hogt3md.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRgEzm2GriO20JTBpAXnJTT6YypYKjzx4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "221525248711-jf4opvbal12c3bk2fp3drsr92hogt3md.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

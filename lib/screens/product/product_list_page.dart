@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klontong/bloc/auth/login.bloc.dart';
 import 'package:klontong/bloc/auth/login.event.dart';
 import 'package:klontong/bloc/product/product.bloc.dart';
+import 'package:klontong/bloc/product/product.even.dart';
 import 'package:klontong/bloc/product/product.state.dart';
 import 'package:klontong/bloc/theme/theme.bloc.dart';
 import 'package:klontong/bloc/theme/theme.event.dart';
@@ -44,28 +45,40 @@ class ProductListPage extends StatelessWidget {
         },
         child: const Icon(Icons.add),
       ),
-      body: BlocBuilder<ProductBloc, ProductState>(
-        builder: (context, state) {
-          if (state is ProductLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is ProductLoaded) {
-            return ListView.separated(
-              separatorBuilder: (context, index) => const SizedBox(height: 16),
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              itemCount: state.products.length,
-              itemBuilder: (context, index) {
-                final product = state.products[index];
-                return ProductWidget(product: product);
-              },
-            );
-          } else if (state is ProductError) {
-            return Center(child: Text(state.message));
-          }
-          return Container();
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<ProductBloc>().add(FetchProducts());
         },
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: BlocBuilder<ProductBloc, ProductState>(
+              builder: (context, state) {
+                if (state is ProductLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is ProductLoaded) {
+                  return ListView.separated(
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 16),
+                    physics: const BouncingScrollPhysics(),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    itemCount: state.products.length,
+                    itemBuilder: (context, index) {
+                      final product = state.products[index];
+                      return ProductWidget(product: product);
+                    },
+                  );
+                } else if (state is ProductError) {
+                  return Center(child: Text(state.message));
+                }
+                return Container();
+              },
+            ),
+          ),
+        ),
       ),
     );
   }

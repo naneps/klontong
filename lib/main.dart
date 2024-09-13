@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klontong/bloc/auth/login.bloc.dart';
@@ -7,11 +9,15 @@ import 'package:klontong/bloc/product/product.bloc.dart';
 import 'package:klontong/bloc/product/product.even.dart';
 import 'package:klontong/bloc/theme/theme.bloc.dart';
 import 'package:klontong/bloc/theme/theme.state.dart';
+import 'package:klontong/firebase_options.dart';
 import 'package:klontong/repositories/product.repository.dart';
 import 'package:klontong/screens/auth/login_page.dart';
 import 'package:klontong/screens/product/product_list_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   runApp(const MainApp());
 }
 

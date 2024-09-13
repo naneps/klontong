@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart'; // Import Firebase Crashlytics
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klontong/bloc/product/product.even.dart';
 import 'package:klontong/bloc/product/product.state.dart';
@@ -27,7 +28,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       await productRepository.addProduct(event.product);
 
       add(FetchProducts());
-    } catch (e) {
+    } catch (e, stackTrace) {
+      FirebaseCrashlytics.instance
+          .recordError(e, stackTrace); // Log error to Crashlytics
       emit(ProductError(e.toString()));
     }
   }
@@ -46,7 +49,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       await productRepository.deleteProduct(event.id);
 
       add(FetchProducts());
-    } catch (e) {
+    } catch (e, stackTrace) {
+      FirebaseCrashlytics.instance
+          .recordError(e, stackTrace); // Log error to Crashlytics
       emit(ProductError(e.toString()));
     }
   }
@@ -59,7 +64,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           const Duration(milliseconds: 300)); // Optional debounce
       final products = await productRepository.fetchProducts();
       emit(ProductLoaded(products));
-    } catch (e) {
+    } catch (e, stackTrace) {
+      FirebaseCrashlytics.instance
+          .recordError(e, stackTrace); // Log error to Crashlytics
       emit(ProductError(e.toString()));
     }
   }
@@ -78,7 +85,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       await productRepository.updateProduct(event.product);
 
       add(FetchProducts());
-    } catch (e) {
+    } catch (e, stackTrace) {
+      FirebaseCrashlytics.instance
+          .recordError(e, stackTrace); // Log error to Crashlytics
       emit(ProductError(e.toString()));
     }
   }
