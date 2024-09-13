@@ -10,7 +10,7 @@ class ProductDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(product.name),
+        title: Text(product.name!),
         actions: [
           IconButton(
             icon: const Icon(Icons.share),
@@ -44,7 +44,7 @@ class ProductDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              product.name,
+              product.name!,
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             Text(

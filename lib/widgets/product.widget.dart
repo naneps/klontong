@@ -42,7 +42,7 @@ class ProductWidget extends StatelessWidget {
           ),
         ),
         title: Text(
-          product.name,
+          product.name ?? '',
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(
@@ -115,7 +115,7 @@ class ProductWidget extends StatelessWidget {
                         Navigator.pop(context);
                         context
                             .read<ProductBloc>()
-                            .add(DeleteProduct(product.id));
+                            .add(DeleteProduct(product.id!));
                       },
                       child: const Text('Delete'),
                     ),
