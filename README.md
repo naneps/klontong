@@ -53,6 +53,6 @@ This application is integrated with **Firebase Crashlytics** for real-time crash
 - **Error Tracking**: Captures non-fatal errors and exceptions, including custom error logs, to provide a comprehensive view of app health.
 - **Real-time Updates**: Delivers real-time reports on issues, enabling quick responses to emerging problems.
 
-![Delete Product](https://github.com/naneps/klontong/blob/main/docs/delete_product.png?raw=true)
+![CRASHLYTICS](https://github.com/naneps/klontong/blob/main/docs/crashlytics.png?raw=true)
 
 ---
